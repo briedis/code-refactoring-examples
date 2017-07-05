@@ -2,26 +2,36 @@
 
 class TestClass
 {
-    public function process()
-    {
+    public function process() {
         $user = $this->getUser();
-        $user->notify(function($message){
+        $items = $this->getItems();
+
+        $this->log(Processing::STARTED, $user);
+
+        $user->notify(function ($message) {
             $message->text('Processing started');
         });
 
-        $this->logger()->log(Processing::STARTED, $user);
+        foreach ($items as $v) {
+            $v->markAsCompleted();
+        }
+    }
+}
+
+class TestClass
+{
+    public function process() {
+        $this->log(Processing::STARTED, $user);
+
+        $user = $this->getUser();
+        $user->notify(function ($message) {
+            $message->text('Processing started');
+        });
 
         $items = $this->getItems();
         foreach ($items as $v) {
             $v->markAsCompleted();
         }
-
-        $methods = $this->getAvailableMethods();
-        foreach ($methods as $v) {
-            if ($v->canBeUsed()) {
-                $this->useMethod($v);
-            }
-        }
     }
-
 }
+
