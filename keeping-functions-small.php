@@ -7,7 +7,7 @@ class OrderService
         $order = $this->getOrder();
 
         foreach ($order->items as $item) {
-            $shipment = $this->shipmentService->newShipment();
+            $shipment = $this->newShipment();
             $shipment->addItem($item);
             $shipment->save();
 
